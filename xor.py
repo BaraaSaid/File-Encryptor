@@ -3,56 +3,29 @@
 import os
 import sys
 import glob
+from Crypto.Cipher import XOR
 
-def str_xor(s1, s2):
-    s = []
-    for i in range(len(s1)-1):
-        c = s1[i] ^ ord(s2[i])
-        s.append(c)
-        
-    return bytes(s)
-    
+def cipherb(key, plaintext):
+    cipher_obj = XOR.new(key)
+    cipher_obj = cipher_obj.encrypt(plaintext)
+    return cipher_obj
 
-def keyPadding(text, keyword):
-    lkeyword = len(keyword)
-    ltext = len(text)
-    if lkeyword >= ltext :
-        keyword = keyword[:len(text)-1]
-        return keyword
-    else:
-        key = keyword
-        n = int((len(text)-len(keyword)) / len(keyword)) + 1
-        for i in range(n):
-            key = key + keyword
-            print('key', key)
-        return key[:len(text)]
-
-
-def file_encoding1(path, keyword,  destination_path):
+def file_encoding1(path, key,  destination_path):
     
     with open(path, mode='rb') as i_file:
-        text = i_file.read()
+        plaintext = i_file.read()
     
     with open(destination_path, mode='xb') as o_file:
-        key = keyPadding(text, keyword)
-        o_file.write(str_xor(text, key))
+        o_file.write(cipherb(key, plaintext))
         
 
 
 
-def file_encoding2(path, keyword):
-    
-    lkeyword = len(keyword)
+def file_encoding2(path, key):
     
     with open(path, mode='rb') as i_file:
-        text = i_file.read()
-        ltext = len(text)
-        if lkeyword >= ltext :
-            keyword = keyword[:len(text)]
-            return str_xor(text, keyword)
-        else:
-            key = keyPadding(text, keyword)
-            return str_xor(text, key)
+        plaintext = i_file.read()
+    return cipherb(key, plaintext)
 
 
 
