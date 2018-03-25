@@ -59,30 +59,31 @@ def main():
         else:
             sys.exit('Missing arguments, required 3 at least')
     elif arguments == 4:
-        path = sys.argv[1]
+        rootDir = sys.argv[1]
         cipher = sys.argv[2]
-        destination_path = sys.argv[3]
+        rootDest = sys.argv[3]
 
-        if not isDirectoryExist(path):
+        if not isDirectoryExist(rootDir):
             sys.exit('Inexistant input')
-        elif not isDirectory(path):
-            file_encoding1(path, cipher, destination_path)
+        elif not isDirectory(rootDir):
+            file_encoding1(rootDir, cipher, rootDest)
             
         else:
-            for root, dirs, files in os.walk(path, topdown=False):
-                for name in files:
-                    iroot = os.path.join(root)
-                    ifile = os.path.join(root, name)
-                   
-                    oroot = iroot.replace(path, destination_path)
-                    oroot = '{0}'.format(oroot)
-                    ofile = ifile.replace(path, destination_path)
-                    
-
-                    
-                    if not os.path.exists(oroot):
-                        os.makedirs(oroot)
-                        file_encoding1(ifile, cipher,ofile)
+            for dirName, subdirList, fileList in os.walk(rootDir):
+                if len(dirName) == len(rootDest):
+                    destDir = dirName.replace(rootDir, rootDest)
+                else:
+                    newPath = dirName
+                    newPath = newPath[len(rootDir):]
+                    destDir = rootDest + newPath
+                
+                
+                if not os.path.exists(destDir):
+                    os.makedirs(destDir)
+                    for fname in fileList:
+                        ifname = os.path.join(dirName, fname)
+                        ofname = os.path.join(destDir, fname)
+                        file_encoding1(ifname, cipher,ofname)
 if __name__ == '__main__':
     main()
 
