@@ -7,4 +7,19 @@ In this project we will build a simple tool that allows us to encrypt and decryp
 - When the input is a folder, the structure of the input should be respected. The output folder structure should be the same as the input and the subfolders.
 
 # Usage
+The following python packages should be installed.
+os
+sys
+glob
+Crypto.Cipher
+
+To run this script : python3 ./xor.py secret_file.txt think-it123 output_file.txt
+Where secret_file.txt is the input file that will be encrypted with the key ‘think-it123’ and saved into the file output_file.txt.
+
+python3 ./xor.py SOURCE_FOLDER think-it123 DESTINATION_FOLDER
+
+
+
+
+
 
