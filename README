@@ -1,1 +1,10 @@
-File Encrypter Project
+# File Encrypter Project
+In this project we will build a simple tool that allows us to encrypt and decrypt files, we will use XOR Cipher as our encryption(and decryption) algorithm.
+
+# Overview
+- In this script we will use python3.
+- This encryption tool should be applied by running a command that accepts 3 arguments, the file/folder name, the key, and optionally the output file/folder.
+- When the input is a folder, the structure of the input should be respected. The output folder structure should be the same as the input and the subfolders.
+
+# Usage
+
